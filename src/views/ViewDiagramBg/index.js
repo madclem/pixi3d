@@ -1,10 +1,9 @@
 // ViewLine.js
 
-import DiagramMaterial from '../components/materials/diagram/DiagramMaterial';
-import Entity3D from '../components/Entity3D';
-import { GLTool } from '../GLTool';
-import PlaneGeometry from '../components/geometries/PlaneGeometry';
-import { smoothstep } from '../utils';
+import DiagramMaterial from './DiagramMaterial';
+import Entity3D from '../../3d-tools/objects/Entity3D';
+import PlaneGeometry from '../../3d-tools/geometries/PlaneGeometry';
+import { smoothstep } from '../../utils';
 
 class ViewDiagramBg extends Entity3D {
 
@@ -37,7 +36,7 @@ class ViewDiagramBg extends Entity3D {
 	}
 
 
-	render(renderer) {
+	update() {
     
     if (!this.paused) {
 
@@ -61,10 +60,6 @@ class ViewDiagramBg extends Entity3D {
 		this.material.uniforms.uTime = this.time;
 		this.material.uniforms.uNbSeconds = this.nbSeconds;
     this.material.uniforms.uLightPosition = this.scene.vLine.points[0];
-
-		GLTool.rotate(this.matrix);
-		GLTool.draw(this, renderer);
-
 	}
 
 

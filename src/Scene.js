@@ -1,12 +1,9 @@
 import { Container, Text } from 'pixi.js';
 
 import Application from './Application';
-import BoxGeometry from './components/geometries/BoxGeometry';
-import ColorMaterial from './components/materials/color/ColorMaterial';
-import Entity3D from './components/Entity3D';
-import {GLTool} from './GLTool';
 import ViewDiagramBg from './views/ViewDiagramBg';
 import ViewLine from './views/ViewLine';
+import { container3D } from './3d-tools';
 import { getCameraDistance } from './utils'
 
 export class Scene extends Application {
@@ -25,35 +22,17 @@ export class Scene extends Application {
     text.position.y = 200;
     this.container.addChild(text);
 
-    this.obj = new Entity3D({
-      geometry: new BoxGeometry(0.1, 0.1, 0.1),
-      material: new ColorMaterial(),
-    })
-
-
     this.vLine = new ViewLine(this, 10);
+    container3D.addChild(this.vLine);
     this.vDiagramBg = new ViewDiagramBg(this, 10);
-
-    
-
-    
+    container3D.addChild(this.vDiagramBg);
   }
 
-  render (renderer) {
-    this.tick++;
-    this.obj.x = Math.cos(this.tick / 100) * 1;
-
-    this.vLine.render(renderer);
-    this.vDiagramBg.render(renderer);
-    
-    // GLTool.rotate(this.obj.matrix);
-    // GLTool.draw(this.obj, renderer);
+  update () {
+    this.vLine.update();
+    this.vDiagramBg.update();
   }
   
-  update () {
-    // this.container.rotation += 0.01;
-  }
-
   resize () {
     super.resize(window.innerWidth, window.innerHeight);
 

@@ -1,9 +1,7 @@
 // ViewLine.js
-
-import {GLTool} from '../GLTool';
-import LineGeometry from '../components/geometries/LineGeometry';
-import LineMaterial from '../components/materials/line/LineMaterial';
-import { getControlPoints } from '../utils';
+import LineGeometry from '../../3d-tools/geometries/LineGeometry';
+import LineMaterial from '../../3d-tools/materials/line/LineMaterial';
+import { getControlPoints } from '../../utils';
 
 function getBezierXY(t, sx, sy, cp1x, cp1y, cp2x, cp2y, ex, ey) {
 	return [Math.pow(1 - t, 3) * sx + 3 * t * Math.pow(1 - t, 2) * cp1x 
@@ -154,7 +152,7 @@ class ViewLine {
 		}
 	}
 
-	render(renderer) {
+	update() {
 		
 		// return;
 		if (!this.paused) {
@@ -190,90 +188,21 @@ class ViewLine {
 			x = coord[0];
 			y = coord[1];
 
-			
-
-			// const duration = 0.1;
-
-			
-
-			// this.heartbeat += (this.hbPoints[hbIndex][1] - this.heartbeat) * 0.05;
-
-			// console.log(this.heartbeat)
-
 		}
 
 		if (!this.paused) {
 			this.heartbeats.push(y);
 		}
-
-		// const isPair = hbIndex === 0 ? 0 : 0;
-		
-		// const pt1 = this.hbPoints[hbIndex + -1] || [0, 0, 0];
-		// this._bBallHbPt1.draw(pt1, [0.12, 0.12, 0.12], [0, 1, 1])
-
-		// const pt2 = [...this.hbPoints[hbIndex] || [0, 0, 0]];
-		// pt2[1] += 0.05;
-		// this._bBallHbCtrlPt.draw(pt2 || [0, 0, 0], [0.1, 0.1, 0.1], [1, 0, 1])
-
-		// const pt3 = [...this.hbPoints[hbIndex + 1] || [0, 0, 0]];
-		// pt3[1] += 0.05;
-		// this._bBallHbPt2.draw(pt3 || [0, 0, 0], [0.1, 0.1, 0.1], [1, 1, 0]);
-
-		// console.log
-		
-
-
-		// const isPair = this.hbPoints.length % 2 === 0 ? 0 : -1;
-		// const pt1 = this.hbPoints[this.hbPoints.length - 3 + isPair] || [0, 0, 0];
-		// this._bBallHbPt1.draw(pt1, [0.12, 0.12, 0.12], [0, 1, 1]);
-
-		// const ptCtrol = [...this.hbPoints[this.hbPoints.length - 2 + isPair] || [0, 0, 0]];
-		// ptCtrol[1] += 0.05;
-		// this._bBallHbCtrlPt.draw(ptCtrol || [0, 0, 0], [0.1, 0.1, 0.1], [1, 0, 1]);
-
-		// const pt2 = [...this.hbPoints[this.hbPoints.length - 1 + isPair] || [0, 0, 0]];
-		// pt2[1] += 0.05;
-		// this._bBallHbPt2.draw(pt2 || [0, 0, 0], [0.1, 0.1, 0.1], [1, 1, 0]);
-
-
-
-		// console.log(t)
-		// const x = (1 - t) * (1 - t) * pt1[0] + 2 * (1 - t) * t * ptCtrol[0] + t * t * pt2[0];
-		// const y = (1 - t) * (1 - t) * pt1[1] + 2 * (1 - t) * t * ptCtrol[1] + t * t * pt2[1];
-		// const t =  (this.time % 60) / 60; // given example value
-		
-		// const cPs = getControlPoints(pt1[0], pt1[1], pt2[0], pt2[1], pt3[0], pt3[1], 0.5);
-
-
-		
-
-		// const coord = getBezierXY(t, pt1[0], pt1[1], cPs[0], cPs[1], cPs[2], cPs[3], pt2[0], pt2[1]);
-
-
-
-
-		// const y = Math.pow(1-t, 2) * pt1[1] + 2 * (1-t) * t * ptCtrol[1] + Math.pow(t, 2) * pt2[1];
-		
-		
 		
 		this.movePoints();
 		const firstPoint = this.points[0];
-		// this._bBall.draw([firstPoint[0], firstPoint[1], 0], [0.05, 0.05, 0.05], [1, 1, 1]);
-		// this._bBall.draw([hbIndex + this.time[0], y, 0], [0.1, 0.1, 0.1], [1, 0, 0])
-
-		// const lastPoint = this.points[this.points.length - 1];
-
-		// console.log(this.points.length);
 		
 		this.scene.orbitalControl.center[0] = firstPoint[0];
-		// this.scene.orbitalControl.center[1] = firstPoint[1];
 		this.scene.orbitalControl.positionOffset[0] = firstPoint[0];
-		// this.scene.orbitalControl.positionOffset[1] = firstPoint[1];
-
+		
 		this.material.uniforms.thickness =  .1;
 		this.material.uniforms.aspect =  window.innerWidth / window.innerHeight;
 		this.material.uniforms.resolutions =  [window.innerWidth, window.innerHeight];
-		GLTool.draw(this, renderer);
 
 	}
 

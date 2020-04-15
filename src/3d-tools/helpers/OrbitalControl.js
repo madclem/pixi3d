@@ -1,6 +1,3 @@
-// OrbitalControl.js
-'use strict';
-
 import EaseNumber from './EaseNumber';
 import Scheduler from  'scheduling';
 import { vec3 } from 'gl-matrix';
